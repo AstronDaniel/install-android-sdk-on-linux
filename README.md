@@ -7,6 +7,8 @@ A lightweight, well-documented guide and script to install the Android SDK on Li
 - [Prerequisites](#prerequisites)
 - [Quick Start (Automated)](#quick-start-automated-installation)
 - [Detailed Manual Installation](#detailed-manual-installation)
+- [Verification](#verification)
+- [Emulator Setup (AVD)](#emulator-setup-avd)
 - [Managing the SDK](#managing-the-sdk)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
@@ -112,6 +114,54 @@ sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 If you are setting this up for CI/CD or just want to get it over with:
 ```bash
 yes | sdkmanager --licenses
+```
+
+## Verification
+
+After installation, verify that the tools are accessible and the SDK is correctly recognized.
+
+1.  **Check ADB**:
+    ```bash
+    adb version
+    ```
+    *Should output: Android Debug Bridge version 1.0.xx*
+
+2.  **Check SDK Manager**:
+    ```bash
+    sdkmanager --list_installed
+    ```
+    *Should list `platform-tools`, `platforms;android-34`, etc.*
+
+## Emulator Setup (AVD)
+
+To run your apps on a virtual device, you need to download a system image and create an Android Virtual Device (AVD).
+
+### 1. Download a System Image
+System images are the OS versions the emulator runs. For most modern Linux systems, `x86_64` is the fastest.
+
+```bash
+# Download the system image for Android 34
+sdkmanager "system-images;android-34;default;x86_64"
+```
+
+### 2. Create the Virtual Device
+Use `avdmanager` to create a device named "testDevice".
+
+```bash
+# Create the AVD
+avdmanager create avd -n testDevice -k "system-images;android-34;default;x86_64"
+```
+*Note: If asked about a custom hardware profile, you can usually press Enter to use the default.*
+
+### 3. Launch the Emulator
+You can now list your devices and start the emulator.
+
+```bash
+# List available AVDs
+emulator -list-avds
+
+# Start the emulator
+emulator @testDevice
 ```
 
 ## Managing the SDK

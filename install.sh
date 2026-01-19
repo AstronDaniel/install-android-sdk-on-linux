@@ -96,3 +96,7 @@ fi
 
 echo "=== Installation Complete ==="
 echo "Please run 'source $PROFILE' or restart your terminal to apply changes."
+echo ""
+echo "NEXT STEPS:"
+echo "1. Verify with: adb version"
+echo "2. Install an Emulator: See the 'Emulator Setup' section in README.md"
